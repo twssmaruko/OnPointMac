@@ -9,6 +9,16 @@ const getPurchaseOrders = async (req, res) => {
     }
 }
 
+const getPurchaseOrder = async (req, res) => {
+    try {
+        const {id} = req.params
+        const fetchedPurchaseOrder = await pool.query('SELECT * FROM purchase_order WHERE purchase_order_id = $1', [id]);
+        res.json(fetchedPurchaseOrder.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+}
+
 const createPurchaseOrder = async (req, res) => {
     try {
 
@@ -24,16 +34,24 @@ const createPurchaseOrder = async (req, res) => {
 
 const deletePurchaseOrder = async (req, res) => {
     try {
-        const { id } = req.params,
-        const deletedPurchaseOrder = await pool.query('DELETE FROM purchase_order WHERE purchase_order_id = $1', [id]);
-        res.json('purchase order deleted');
+        const {id} = req.params
     } catch (err) {
         console.error(err.message);
     }
 }
 
+// const deletePurchaseOrder = async (req, res) => {
+//     try {
+//         const { id } = req.params,
+//         const deletedPurchaseOrder = await pool.query('DELETE FROM purchase_order WHERE purchase_order_id = $1', [id]);
+//         res.json('purchase order deleted');
+//     } catch (err) {
+//         console.error(err.message);
+//     }
+// }
+
 module.exports = {
     getPurchaseOrders,
+    getPurchaseOrder,
     createPurchaseOrder,
-    deletePurchaseOrder
 }
