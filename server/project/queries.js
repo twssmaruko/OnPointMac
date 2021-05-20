@@ -32,7 +32,6 @@ const getProject = async (req, res) => {
 
 const createProject = async (req, res) => {
     try {
-        
         const {project_location, project_status, client_name, project_code, project_name} = req.body;
         const createdProject = await pool.query('INSERT INTO project (project_location, project_status, client_name, project_code, project_name) VALUES ($1, $2, $3, $4, $5)',
         [project_location, project_status, client_name, project_code, project_name]);
